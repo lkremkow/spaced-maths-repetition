@@ -1,0 +1,52 @@
+<div class="container" *ngIf="(sesssion_observable | async)?.length != 0">
+
+    <div *ngFor="let user_profile of sesssion_observable | async">
+    <div class="row mt-1 mb-1">
+      <div class="col-12">Account and Settings</div>
+    </div>
+
+    <div class="row mt-1 mb-1">
+      <div class="col-6">End you session and logout:</div>
+      <div class="col-6 text-center"><button class="btn btn-success" (click)="logout(user_profile.session_id)">logout</button></div>
+    </div>    
+
+    <div class="row mt-1 mb-1">
+      <div class="col-4">Change your username:</div>
+      <div class="col-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder={{user_profile.username}} [(ngModel)]="new_username">
+        </div>
+      </div>
+      <div class="col-4 text-center"><button class="btn btn-success" (click)="change_username(user_profile.session_id)">change</button></div>
+    </div>
+
+    <div class="row mt-1 mb-1">
+      <div class="col-4">Change your password:</div>
+      <div class="col-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="type your new password here" [(ngModel)]="new_password">
+        </div>
+      </div>
+      <div class="col-4 text-center"><button class="btn btn-success" (click)="change_password(user_profile.session_id)">change</button></div>
+    </div>
+  
+    <div class="row mt-1 mb-1">
+      <div class="col-6">Reset all questions (delete existing catalog, re-import current catalog):</div>
+      <div class="col-6 text-center"><button class="btn btn-success" (click)="reset_questions(user_profile.session_id)">reset</button></div>
+    </div>
+
+    <div class="row mt-1 mb-1">
+      <div class="col-6">Destroy my account:</div>
+      <div class="col-6 text-center"><button class="btn btn-success" (click)="destroy_account(user_profile.session_id)">destroy</button></div>
+    </div>
+    </div>
+  
+  </div>
+
+  <div class="container" *ngIf="(sesssion_observable | async)?.length == 0">
+
+    <div class="row mt-1 mb-1">
+      <div class="col-12">Your session has expired - please <a href="/login">log in again</a>.</div>
+    </div>
+  
+  </div>

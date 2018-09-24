@@ -1,0 +1,27 @@
+<div class="container" *ngIf="(sesssion_observable | async)?.length != 0">
+
+  <div *ngIf="(questions_observable | async)?.length != 0">
+    <div class="row mt-1 mb-1">
+      <div class="col-12">Question:</div>
+    </div>
+
+    <div class="row mt-1 mb-1" *ngFor="let a_question of questions_observable | async">
+      <div class="col-4">{{a_question.question}}</div>
+      <div class="col-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="answer" [(ngModel)]="given_answer">
+        </div>
+      </div>
+      <div class="col-4"><button class="btn btn-success" (click)="submit_answer(a_question._id)">submit</button></div>
+    </div>
+  </div>  
+
+</div>
+
+<div class="container" *ngIf="(sesssion_observable | async)?.length == 0">
+
+  <div class="row mt-1 mb-1">
+    <div class="col-12">Your session has expired - please <a href="/login">log in again</a>.</div>
+  </div>
+
+</div>

@@ -1,0 +1,65 @@
+<div class="container" *ngIf="returning_user">
+
+  <div class="row mt-1 mb-1">
+    <div class="col-12">If you are a new user or want to create additional accounts for other learners, please use the sign-up form instead.</div>
+  </div>
+
+  <div class="row mt-3 mb-3">
+    <div class="col-12">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="username" [(ngModel)]="username">
+      </div>
+    </div>
+  </div>
+  
+  <div class="row mt-3 mb-3">
+    <div class="col-12">
+      <div class="input-group">
+        <input type="password" class="form-control" placeholder="password" [(ngModel)]="password">
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3 mb-3">
+    <div class="col-6 text-center"><button class="btn btn-success" (click)="login_user()">login</button></div>
+    <div class="col-6 text-center"><button class="btn btn-warning" (click)="toggle_user_type()">new user sign-up</button></div>
+  </div>
+
+</div>
+
+<div class="container" *ngIf="new_user">
+
+    <div class="row mt-1 mb-1">
+      <div class="col-12">If you already have an account, please use the login form instead.</div>
+    </div>
+  
+    <div class="row mt-3 mb-3">
+      <div class="col-12">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="your new username" [(ngModel)]="new_user_username">
+        </div>
+      </div>
+    </div>
+    
+    <div class="row mt-3 mb-3">
+      <div class="col-12">
+        <div class="input-group">
+          <input type="password" class="form-control" placeholder="set a password" [(ngModel)]="new_user_password">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3 mb-3">
+        <div class="col-12">
+          <div class="input-group">
+            <input type="password" class="form-control" placeholder="repeat your password" [(ngModel)]="new_user_password_bis">
+          </div>
+        </div>
+      </div>    
+  
+    <div class="row mt-3 mb-3">
+      <div class="col-6 text-center"><button class="btn btn-success" (click)="create_user()">sign-up</button></div>
+      <div class="col-6 text-center"><button class="btn btn-warning" (click)="toggle_user_type()">existing user login</button></div>
+    </div>
+  
+  </div>
