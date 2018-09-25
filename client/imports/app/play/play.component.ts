@@ -113,4 +113,22 @@ export class PlayComponent implements OnInit, OnDestroy {
     });
   };
 
+  private submit_value(submitted_value: string): void {
+    if (submitted_value !== "") {
+      if ((typeof this.given_answer === "undefined") || (this.given_answer === null)) {
+        this.given_answer = submitted_value;
+      } else {
+        this.given_answer = this.given_answer + submitted_value;
+      };
+    };
+  };
+
+  private submit_clear(): void {
+    this.given_answer = null;
+  };  
+
+  private submit_random(): void {
+    this.given_answer = Math.floor(Math.random() * 100).toString();
+  };    
+
 };
