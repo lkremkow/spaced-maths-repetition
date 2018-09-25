@@ -131,8 +131,8 @@ function fill_questions_library(): void {
   QuestionsLibrary.insert(new_question);
 
   new_question.question = "6 × 2";
-  new_question.answer = "8.6777";
-  new_question.difficulty = 1;
+  new_question.answer = "12";
+  new_question.difficulty = 8.6777;
   QuestionsLibrary.insert(new_question);
 
   new_question.question = "11 × 1";
@@ -756,7 +756,7 @@ function fill_questions_library(): void {
   QuestionsLibrary.insert(new_question);
 
   // additions
-  new_question.operation = "m";
+  new_question.operation = "a";
 
   new_question.question = "1 + 1";
   new_question.answer = "2";

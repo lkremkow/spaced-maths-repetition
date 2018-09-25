@@ -95,14 +95,17 @@ Meteor.methods({
       Users.insert(new_user);
 
       var questions_in_library : Question[] = [];
-      questions_in_library = QuestionsLibrary.find().fetch();
+      questions_in_library = QuestionsLibrary.find({operation: 'm'}).fetch();
       for (let question_counter = 0; question_counter < questions_in_library.length; question_counter++) {
         delete questions_in_library[question_counter]._id;
         questions_in_library[question_counter].owned_by_user_id = new_user_id;
         questions_in_library[question_counter].tied_to_session_id = new_session_id;
+        questions_in_library[question_counter].next_try = new Date();
         Questions.insert(questions_in_library[question_counter]);
       };
+
       return new_session_id;
+      
     } else {
       return "";
     };
@@ -201,6 +204,7 @@ Meteor.methods({
           delete questions_in_library[question_counter]._id;
           questions_in_library[question_counter].owned_by_user_id = existing_user.user_id;
           questions_in_library[question_counter].tied_to_session_id = session_id_arg;
+          questions_in_library[question_counter].next_try = new Date();
           Questions.insert(questions_in_library[question_counter]);
         };
       } else if (operation_arg === "rem") {

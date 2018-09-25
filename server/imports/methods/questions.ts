@@ -16,7 +16,8 @@ Meteor.methods({
       if (question_answered.answer === given_answer_arg) {
         console.log("the question was answered correctly");
 
-        let minutes_to_defer_question = Math.pow(question_answered.current_score + 1, 2);
+        let new_score = question_answered.current_score + 1;
+        let minutes_to_defer_question = Math.pow(5, new_score);
 
         console.log("deferring the question " + minutes_to_defer_question + " minutes");
 
@@ -29,7 +30,7 @@ Meteor.methods({
                     'next_try': new Date(Date.now() + minutes_to_defer_question*60000),
                     'times_tried': question_answered.times_tried + 1,
                     'times_right': question_answered.times_right + 1,
-                    'current_score': question_answered.current_score + 1
+                    'current_score': new_score
                   }
           },
           // options
@@ -45,7 +46,7 @@ Meteor.methods({
           },
           // modifier
           { $set: { 'last_try': new Date(),
-                    'next_try': new Date(Date.now() + 1*60000),
+                    'next_try': new Date(Date.now() + 5*60000),
                     'times_tried': question_answered.times_tried + 1,
                     'times_wrong': question_answered.times_wrong + 1,
                     'current_score': 0
