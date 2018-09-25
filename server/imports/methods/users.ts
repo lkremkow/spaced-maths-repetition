@@ -158,23 +158,55 @@ Meteor.methods({
     };
   },
 
-  reset_questions(session_id_arg: string) {
+  modify_questions(session_id_arg: string, operation_arg: string, family_arg: string) {
 
     let existing_user: User;
     existing_user = Users.findOne( { 'session_id': session_id_arg         
                                    });
 
+    let family_of_operations_selector: any = "";  
     if (typeof existing_user !== "undefined") {
-      Questions.remove( {'owned_by_user_id': existing_user.user_id} );
+      if (family_arg === "mul") {
+        family_of_operations_selector = {
+          $in: ['m']
+        };
 
-      var questions_in_library : Question[] = [];
-      questions_in_library = QuestionsLibrary.find().fetch();
-      for (let question_counter = 0; question_counter < questions_in_library.length; question_counter++) {
-        delete questions_in_library[question_counter]._id;
-        questions_in_library[question_counter].owned_by_user_id = existing_user.user_id;
-        questions_in_library[question_counter].tied_to_session_id = session_id_arg;
-        Questions.insert(questions_in_library[question_counter]);
+      } else if (family_arg === "div") {
+        family_of_operations_selector = {
+          $in: ['d']
+        };
+        
+      } else if (family_arg === "add") {
+        family_of_operations_selector = {
+          $in: ['a']
+        };
+        
+      } else if (family_arg === "sub") {
+        family_of_operations_selector = {
+          $in: ['s']
+        };
+        
+      } else if (family_arg === "all") {
+        family_of_operations_selector = {
+          $in: ['m', 'd', 'a', 's']
+        };
+        
       };
+
+      if (operation_arg === "add") {
+        Questions.remove( {'owned_by_user_id': existing_user.user_id, operation: family_of_operations_selector} );
+        var questions_in_library : Question[] = [];
+        questions_in_library = QuestionsLibrary.find({operation: family_of_operations_selector}).fetch();
+        for (let question_counter = 0; question_counter < questions_in_library.length; question_counter++) {
+          delete questions_in_library[question_counter]._id;
+          questions_in_library[question_counter].owned_by_user_id = existing_user.user_id;
+          questions_in_library[question_counter].tied_to_session_id = session_id_arg;
+          Questions.insert(questions_in_library[question_counter]);
+        };
+      } else if (operation_arg === "rem") {
+        Questions.remove( {'owned_by_user_id': existing_user.user_id, operation: family_of_operations_selector} );
+      };
+
     };
   },
 

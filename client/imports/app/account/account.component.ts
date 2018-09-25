@@ -113,15 +113,15 @@ export class AccountComponent implements OnInit, OnDestroy {
     });    
   };  
 
-  private reset_questions(session_id_arg: string) {
-    console.log("AccountComponent would like to reset the questions for session " + session_id_arg);
-    Meteor.call('reset_questions', session_id_arg, (error, result) => {
+  private modify_questions(session_id_arg: string, operation_arg: string, family_arg: string) {
+    console.log("AccountComponent would like to " + operation_arg + " the " + family_arg + " questions for session " + session_id_arg);
+    Meteor.call('modify_questions', session_id_arg, operation_arg, family_arg, (error, result) => {
       if (error) {
         console.log("AccountComponent called reset_questions but something went wrong");
         console.log(error);
       } else {
         // console.log("AccountComponent called login_user and got:", result);
-      };     
+      };
     });
   };
 
